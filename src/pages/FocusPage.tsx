@@ -84,21 +84,28 @@ export default function FocusPage() {
   return (
     <>
       <PageMeta title="Focus Mode — LifeBoard AI" description="Focus on what matters." />
-      <div className="fixed inset-0 focus-ambient flex flex-col items-center justify-center z-50">
-        {/* Exit Button */}
-        <button
-          onClick={() => navigate('/dashboard')}
-          className="absolute top-4 right-4 p-3 rounded-full bg-white/60 backdrop-blur text-foreground hover:bg-white/80 transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
+      <div 
+        className="fixed inset-0 z-50 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url("/images/illustrations/nature.jpg")' }}
+      >
+        {/* Overlay to ensure text and UI readability */}
+        <div className="absolute inset-0 bg-white/30 backdrop-blur-[3px]" />
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-center px-4"
-        >
+        <div className="relative w-full h-full flex flex-col items-center justify-center">
+          {/* Exit Button */}
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="absolute top-4 right-4 p-3 rounded-full bg-white/60 backdrop-blur text-foreground hover:bg-white/80 transition-colors z-10"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-center px-4 z-10 relative"
+          >
           {/* Main Content Area */}
           {isEditing ? (
             <motion.div 
@@ -246,6 +253,7 @@ export default function FocusPage() {
             </motion.div>
           )}
         </motion.div>
+        </div>
       </div>
     </>
   );
