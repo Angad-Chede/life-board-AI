@@ -165,8 +165,8 @@ export default function NotesPage() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.04 }}
-      className={`p-4 rounded-xl bg-white/60 border hover:bg-white/80 transition-colors ${
-        note.pinned ? 'border-l-4 border-l-violet-400 border-white/50' : 'border-white/50'
+      className={`p-4 rounded-xl bg-card/60 border hover:bg-card/80 transition-colors ${
+        note.pinned ? 'border-l-4 border-l-primary border-border/50' : 'border-border/50'
       }`}
     >
       <div className="flex items-start justify-between gap-2 mb-2">
@@ -180,7 +180,7 @@ export default function NotesPage() {
           <button
             onClick={() => togglePin(note.id, note.pinned)}
             className={`p-1.5 rounded-lg transition-colors ${
-              note.pinned ? 'text-violet-600 bg-violet-50' : 'text-muted-foreground hover:bg-muted'
+              note.pinned ? 'text-primary bg-primary/10' : 'text-muted-foreground hover:bg-muted'
             }`}
           >
             <Pin className="w-3.5 h-3.5" />
@@ -221,7 +221,7 @@ export default function NotesPage() {
           </div>
           <button
             onClick={() => openEditor()}
-            className="flex items-center gap-2 bg-violet-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-violet-700 transition-colors shrink-0"
+            className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-primary/90 transition-colors shrink-0"
           >
             <Plus className="w-4 h-4" /> New Note
           </button>
@@ -240,7 +240,7 @@ export default function NotesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search notes..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-input bg-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-input bg-background/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
           />
         </motion.div>
 
@@ -263,7 +263,7 @@ export default function NotesPage() {
             {pinnedNotes.length > 0 && (
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <Pin className="w-3.5 h-3.5 text-violet-500" />
+                  <Pin className="w-3.5 h-3.5 text-primary" />
                   <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Pinned</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -301,7 +301,7 @@ export default function NotesPage() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-2xl max-h-[90dvh] overflow-y-auto"
+              className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border rounded-t-2xl shadow-2xl max-h-[90dvh] overflow-y-auto"
             >
               <div className="p-6 max-w-2xl mx-auto">
                 <div className="flex items-center justify-between mb-6">
@@ -319,14 +319,14 @@ export default function NotesPage() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Note title"
-                    className="w-full px-4 py-2.5 rounded-xl border border-input bg-white text-sm font-sora font-semibold focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                    className="w-full px-4 py-2.5 rounded-xl border border-input bg-background text-sm font-sora font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   />
                   <textarea
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="Write your note here..."
                     rows={8}
-                    className="w-full px-4 py-2.5 rounded-xl border border-input bg-white text-sm resize-none focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                    className="w-full px-4 py-2.5 rounded-xl border border-input bg-background text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   />
 
                   <div className="flex items-center justify-between">
@@ -335,7 +335,7 @@ export default function NotesPage() {
                       onClick={() => setPinned(!pinned)}
                       className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                         pinned
-                          ? 'bg-violet-50 text-violet-700 border border-violet-200'
+                          ? 'bg-primary/10 text-primary border border-primary/20'
                           : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
                     >
@@ -346,7 +346,7 @@ export default function NotesPage() {
                     <button
                       type="submit"
                       disabled={!title.trim()}
-                      className="flex items-center gap-2 bg-violet-600 text-white px-5 py-2 rounded-xl text-sm font-medium hover:bg-violet-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2 rounded-xl text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Save className="w-4 h-4" /> Save
                     </button>

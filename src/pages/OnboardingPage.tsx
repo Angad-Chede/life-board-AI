@@ -113,7 +113,7 @@ export default function OnboardingPage() {
                 <div
                   key={i}
                   className={`h-2 flex-1 rounded-full transition-all duration-300 ${
-                    i <= step ? 'bg-violet-500' : 'bg-muted'
+                    i <= step ? 'bg-primary' : 'bg-muted'
                   }`}
                 />
               ))}
@@ -142,11 +142,11 @@ export default function OnboardingPage() {
                         onClick={() => setSelectedType(type.id)}
                         className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 text-left transition-all ${
                           isSelected
-                            ? 'border-violet-500 bg-violet-50/50'
-                            : 'border-border bg-white/40 hover:bg-white/60'
+                            ? 'border-primary bg-primary/10'
+                            : 'border-border bg-background/40 hover:bg-background/60'
                         }`}
                       >
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${isSelected ? 'bg-violet-100 text-violet-600' : 'bg-muted text-muted-foreground'}`}>
+                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${isSelected ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>
                           <Icon className="w-5 h-5" />
                         </div>
                         <div>
@@ -175,8 +175,8 @@ export default function OnboardingPage() {
                         onClick={() => toggleGoal(goal)}
                         className={`px-4 py-2.5 rounded-full border-2 text-sm font-medium transition-all ${
                           isSelected
-                            ? 'border-violet-500 bg-violet-50 text-violet-700'
-                            : 'border-border bg-white/40 text-foreground hover:bg-white/60'
+                            ? 'border-primary bg-primary/10 text-primary'
+                            : 'border-border bg-background/40 text-foreground hover:bg-background/60'
                         }`}
                       >
                         {goal}
@@ -203,11 +203,11 @@ export default function OnboardingPage() {
                         onClick={() => setSelectedFocus(style.id)}
                         className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 text-left transition-all ${
                           isSelected
-                            ? 'border-violet-500 bg-violet-50/50'
-                            : 'border-border bg-white/40 hover:bg-white/60'
+                            ? 'border-primary bg-primary/10'
+                            : 'border-border bg-background/40 hover:bg-background/60'
                         }`}
                       >
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${isSelected ? 'bg-violet-100 text-violet-600' : 'bg-muted text-muted-foreground'}`}>
+                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${isSelected ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>
                           <Icon className="w-5 h-5" />
                         </div>
                         <div>
@@ -234,7 +234,7 @@ export default function OnboardingPage() {
                 <button
                   onClick={() => setStep((s) => s + 1)}
                   disabled={!canProceed()}
-                  className="flex items-center gap-1 bg-violet-600 text-white text-sm font-medium px-5 py-2.5 rounded-xl hover:bg-violet-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-1 bg-primary text-primary-foreground text-sm font-medium px-5 py-2.5 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next <ChevronRight className="w-4 h-4" />
                 </button>
@@ -242,7 +242,7 @@ export default function OnboardingPage() {
                 <button
                   onClick={handleFinish}
                   disabled={!canProceed() || saving}
-                  className="flex items-center gap-1 bg-violet-600 text-white text-sm font-medium px-5 py-2.5 rounded-xl hover:bg-violet-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-1 bg-primary text-primary-foreground text-sm font-medium px-5 py-2.5 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {saving ? 'Saving...' : 'Get Started'} <ChevronRight className="w-4 h-4" />
                 </button>
