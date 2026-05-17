@@ -12,7 +12,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {!isFocusMode && <Sidebar />}
       <div className="flex-1 min-w-0 overflow-x-hidden flex flex-col">
         {!isFocusMode && (
-          <div className="lg:hidden fixed top-4 right-4 z-50">
+          <div className="lg:hidden fixed bottom-20 right-4 z-50">
             <ThemeToggle />
           </div>
         )}
