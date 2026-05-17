@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import {
@@ -17,7 +17,6 @@ import {
   Clock,
 } from 'lucide-react';
 import PageMeta from '@/components/common/PageMeta';
-import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const features = [
   {
@@ -80,6 +79,21 @@ const itemVariants = {
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    const wasDark = root.classList.contains('dark');
+    if (wasDark) {
+      root.classList.remove('dark');
+      root.classList.add('light');
+    }
+    return () => {
+      if (wasDark) {
+        root.classList.add('dark');
+        root.classList.remove('light');
+      }
+    };
+  }, []);
+
   return (
     <>
       <PageMeta title="LifeBoard AI — Your Life, Beautifully Organized" description="Smart adaptive productivity dashboard with tasks, habits, notes, focus mode, and AI insights." />
@@ -102,8 +116,6 @@ export default function LandingPage() {
               </nav>
 
               <div className="hidden md:flex items-center gap-4">
-                <ThemeToggle />
-                <div className="h-6 w-px bg-border/50" />
                 <Link to="/auth/login" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-4 py-2">Login</Link>
                 <Link to="/auth/signup" className="text-sm font-medium bg-violet-600 text-white hover:bg-violet-700 transition-colors px-4 py-2 rounded-xl">Get Started</Link>
               </div>
@@ -123,10 +135,6 @@ export default function LandingPage() {
               <a href="#features" className="block text-sm font-medium text-muted-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Features</a>
               <a href="#focus" className="block text-sm font-medium text-muted-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Focus</a>
               <a href="#ai" className="block text-sm font-medium text-muted-foreground py-2" onClick={() => setMobileMenuOpen(false)}>AI</a>
-              <div className="py-2 border-t border-border/30 flex items-center justify-between">
-                <span className="text-sm font-medium text-muted-foreground">Theme</span>
-                <ThemeToggle />
-              </div>
               <Link to="/auth/login" className="block text-sm font-medium text-muted-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Login</Link>
               <Link to="/auth/signup" className="block text-sm font-medium bg-violet-600 text-white px-4 py-2 rounded-xl text-center" onClick={() => setMobileMenuOpen(false)}>Get Started</Link>
             </motion.div>
