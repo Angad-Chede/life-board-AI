@@ -270,12 +270,12 @@ export default function HabitsPage() {
             value={newHabitName}
             onChange={(e) => setNewHabitName(e.target.value)}
             placeholder="Add a new habit..."
-            className="flex-1 px-4 py-2.5 rounded-xl border border-input bg-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+            className="flex-1 px-4 py-2.5 rounded-xl border border-input bg-background/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
           />
           <button
             type="submit"
             disabled={!newHabitName.trim()}
-            className="flex items-center gap-2 bg-violet-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-violet-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+            className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
           >
             <Plus className="w-4 h-4" /> Add
           </button>
@@ -303,7 +303,7 @@ export default function HabitsPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="flex items-center gap-4 p-4 rounded-xl bg-white/60 border border-white/50 hover:bg-white/80 transition-colors"
+                className="flex items-center gap-4 p-4 rounded-xl bg-card/60 border border-border hover:bg-card/80 transition-colors"
               >
                 {/* Check-in */}
                 <button
@@ -316,7 +316,7 @@ export default function HabitsPage() {
                   {habit.completed_today ? (
                     <CheckCircle2 className="w-6 h-6 text-emerald-500" />
                   ) : (
-                    <Circle className="w-6 h-6 text-muted-foreground/30 hover:text-violet-400 transition-colors" />
+                    <Circle className="w-6 h-6 text-muted-foreground/30 hover:text-primary transition-colors" />
                   )}
                 </button>
 

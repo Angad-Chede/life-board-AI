@@ -90,7 +90,7 @@ export default function FocusPage() {
         style={{ backgroundImage: 'url("/images/illustrations/nature.jpg")' }}
       >
         {/* Overlay to ensure text and UI readability */}
-        <div className="absolute inset-0 bg-white/30 backdrop-blur-[3px]" />
+        <div className="absolute inset-0 bg-background/40 backdrop-blur-[5px]" />
 
         <div className="relative w-full h-full flex flex-col items-center justify-center">
           {/* Theme Toggle */}
@@ -101,7 +101,7 @@ export default function FocusPage() {
           {/* Exit Button */}
           <button
             onClick={() => navigate('/dashboard')}
-            className="absolute top-4 right-4 p-3 rounded-full bg-white/60 backdrop-blur text-foreground hover:bg-white/80 transition-colors z-10"
+            className="absolute top-4 right-4 p-3 rounded-full bg-background/60 backdrop-blur text-foreground hover:bg-background/80 transition-colors z-10"
           >
             <X className="w-5 h-5" />
           </button>
@@ -132,7 +132,7 @@ export default function FocusPage() {
                     max="120"
                     value={workMinutes}
                     onChange={(e) => setWorkMinutes(Number(e.target.value) || 1)}
-                    className="w-full bg-white/50 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:ring-2 focus:ring-violet-500 transition-all"
+                    className="w-full bg-background/50 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -143,7 +143,7 @@ export default function FocusPage() {
                     max="30"
                     value={breakMinutes}
                     onChange={(e) => setBreakMinutes(Number(e.target.value) || 1)}
-                    className="w-full bg-white/50 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:ring-2 focus:ring-violet-500 transition-all"
+                    className="w-full bg-background/50 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -154,7 +154,7 @@ export default function FocusPage() {
                     max="60"
                     value={longBreakMinutes}
                     onChange={(e) => setLongBreakMinutes(Number(e.target.value) || 1)}
-                    className="w-full bg-white/50 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:ring-2 focus:ring-violet-500 transition-all"
+                    className="w-full bg-background/50 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                   />
                 </div>
               </div>
@@ -162,13 +162,13 @@ export default function FocusPage() {
               <div className="flex gap-3">
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium bg-white/70 text-foreground border border-border hover:bg-white transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium bg-background/70 text-foreground border border-border hover:bg-background transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={saveSettings}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium bg-violet-600 text-white hover:bg-violet-700 transition-colors shadow-lg shadow-violet-500/20"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
                 >
                   Save
                 </button>
@@ -226,8 +226,8 @@ export default function FocusPage() {
                   onClick={() => setIsActive(!isActive)}
                   className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-colors ${
                     isActive
-                      ? 'bg-white/70 text-foreground border border-border hover:bg-white'
-                      : 'bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/20'
+                      ? 'bg-background/70 text-foreground border border-border hover:bg-background'
+                      : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20'
                   }`}
                 >
                   {isActive ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
@@ -235,13 +235,13 @@ export default function FocusPage() {
                 </button>
                 <button
                   onClick={resetTimer}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium bg-white/70 text-foreground border border-border hover:bg-white transition-colors"
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium bg-background/70 text-foreground border border-border hover:bg-background transition-colors"
                 >
                   <RotateCcw className="w-4 h-4" /> Reset
                 </button>
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium bg-white/70 text-foreground border border-border hover:bg-white transition-colors"
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium bg-background/70 text-foreground border border-border hover:bg-background transition-colors"
                 >
                   <Settings2 className="w-4 h-4" /> Edit
                 </button>
