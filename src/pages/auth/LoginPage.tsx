@@ -57,7 +57,7 @@ export default function LoginPage() {
             <button
               onClick={handleGoogle}
               type="button"
-              className="w-full flex items-center justify-center gap-2 bg-white border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors mb-6"
+              className="w-full flex items-center justify-center gap-2 bg-background border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors mb-6"
             >
               <Chrome className="w-4 h-4" />
               Continue with Google
@@ -68,7 +68,7 @@ export default function LoginPage() {
                 <div className="w-full border-t border-border" />
               </div>
               <div className="relative flex justify-center text-xs">
-                <span className="bg-white/70 px-2 text-muted-foreground">or</span>
+                <span className="bg-background/70 px-2 text-muted-foreground">or</span>
               </div>
             </div>
 
@@ -83,7 +83,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-input bg-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-input bg-background/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   />
                 </div>
               </div>
@@ -98,7 +98,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-input bg-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-input bg-background/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   />
                   <button
                     type="button"
@@ -113,7 +113,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-violet-600 text-white font-medium py-2.5 rounded-xl hover:bg-violet-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-primary text-primary-foreground font-medium py-2.5 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Signing in...' : 'Sign In'}
               </button>
@@ -121,7 +121,7 @@ export default function LoginPage() {
 
             <p className="text-center text-sm text-muted-foreground mt-6">
               Don&apos;t have an account?{' '}
-              <Link to="/auth/signup" className="text-violet-600 font-medium hover:underline">Sign up</Link>
+              <Link to="/auth/signup" className="text-primary font-medium hover:underline">Sign up</Link>
             </p>
           </div>
         </motion.div>

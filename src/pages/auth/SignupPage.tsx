@@ -58,7 +58,7 @@ export default function SignupPage() {
             <button
               onClick={handleGoogle}
               type="button"
-              className="w-full flex items-center justify-center gap-2 bg-white border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors mb-6"
+              className="w-full flex items-center justify-center gap-2 bg-background border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors mb-6"
             >
               <Chrome className="w-4 h-4" />
               Sign up with Google
@@ -69,7 +69,7 @@ export default function SignupPage() {
                 <div className="w-full border-t border-border" />
               </div>
               <div className="relative flex justify-center text-xs">
-                <span className="bg-white/70 px-2 text-muted-foreground">or</span>
+                <span className="bg-background/70 px-2 text-muted-foreground">or</span>
               </div>
             </div>
 
@@ -84,7 +84,7 @@ export default function SignupPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="John Doe"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-input bg-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-input bg-background/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   />
                 </div>
               </div>
@@ -99,7 +99,7 @@ export default function SignupPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-input bg-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-input bg-background/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   />
                 </div>
               </div>
@@ -115,7 +115,7 @@ export default function SignupPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Create a strong password"
                     minLength={6}
-                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-input bg-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-input bg-background/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   />
                   <button
                     type="button"
@@ -130,7 +130,7 @@ export default function SignupPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-violet-600 text-white font-medium py-2.5 rounded-xl hover:bg-violet-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-primary text-primary-foreground font-medium py-2.5 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Creating account...' : 'Create Account'}
               </button>
@@ -138,7 +138,7 @@ export default function SignupPage() {
 
             <p className="text-center text-sm text-muted-foreground mt-6">
               Already have an account?{' '}
-              <Link to="/auth/login" className="text-violet-600 font-medium hover:underline">Sign in</Link>
+              <Link to="/auth/login" className="text-primary font-medium hover:underline">Sign in</Link>
             </p>
           </div>
         </motion.div>

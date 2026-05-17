@@ -198,7 +198,7 @@ export default function TasksPage() {
           </div>
           <button
             onClick={() => openDrawer()}
-            className="flex items-center gap-2 bg-violet-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-violet-700 transition-colors shrink-0"
+            className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-primary/90 transition-colors shrink-0"
           >
             <Plus className="w-4 h-4" /> New
           </button>
@@ -217,7 +217,7 @@ export default function TasksPage() {
               onClick={() => setFilter(tab)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                 filter === tab
-                  ? 'bg-violet-50 text-violet-700'
+                  ? 'bg-primary/10 text-primary'
                   : 'text-muted-foreground hover:bg-muted'
               }`}
             >
@@ -248,14 +248,14 @@ export default function TasksPage() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 12 }}
                   transition={{ duration: 0.3, delay: index * 0.03 }}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-white/60 border border-white/50 hover:bg-white/80 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-xl bg-card/60 border border-border hover:bg-card/80 transition-colors"
                 >
                   <button
                     onClick={() => toggleTask(task.id, task.completed)}
                     className="shrink-0"
                   >
                     {task.completed ? (
-                      <CheckSquare className="w-5 h-5 text-violet-600" />
+                      <CheckSquare className="w-5 h-5 text-primary" />
                     ) : (
                       <Square className="w-5 h-5 text-muted-foreground/40" />
                     )}
@@ -315,7 +315,7 @@ export default function TasksPage() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-full max-w-md z-50 bg-white shadow-2xl overflow-y-auto"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-md z-50 bg-background border-l border-border shadow-2xl overflow-y-auto"
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
@@ -335,7 +335,7 @@ export default function TasksPage() {
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       placeholder="What needs to be done?"
-                      className="w-full px-4 py-2.5 rounded-xl border border-input bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                      className="w-full px-4 py-2.5 rounded-xl border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     />
                   </div>
 
@@ -346,7 +346,7 @@ export default function TasksPage() {
                       onChange={(e) => setDescription(e.target.value)}
                       placeholder="Add details..."
                       rows={3}
-                      className="w-full px-4 py-2.5 rounded-xl border border-input bg-white text-sm resize-none focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                      className="w-full px-4 py-2.5 rounded-xl border border-input bg-white text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     />
                   </div>
 
@@ -356,7 +356,7 @@ export default function TasksPage() {
                       <select
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl border border-input bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                       >
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
@@ -369,7 +369,7 @@ export default function TasksPage() {
                         type="date"
                         value={dueDate}
                         onChange={(e) => setDueDate(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl border border-input bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                       />
                     </div>
                   </div>
@@ -378,7 +378,7 @@ export default function TasksPage() {
                     <button
                       type="submit"
                       disabled={!title.trim()}
-                      className="w-full flex items-center justify-center gap-2 bg-violet-600 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-violet-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-2.5 rounded-xl text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Save className="w-4 h-4" /> {editingTask ? 'Update Task' : 'Add Task'}
                     </button>
