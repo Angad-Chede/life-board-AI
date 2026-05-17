@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Play, Pause, RotateCcw, X, Timer } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageMeta from '@/components/common/PageMeta';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 import { Settings2 } from 'lucide-react';
 
@@ -92,6 +93,11 @@ export default function FocusPage() {
         <div className="absolute inset-0 bg-white/30 backdrop-blur-[3px]" />
 
         <div className="relative w-full h-full flex flex-col items-center justify-center">
+          {/* Theme Toggle */}
+          <div className="absolute top-4 left-4 z-10">
+            <ThemeToggle />
+          </div>
+
           {/* Exit Button */}
           <button
             onClick={() => navigate('/dashboard')}
