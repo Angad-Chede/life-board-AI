@@ -14,7 +14,7 @@ export default function Sidebar() {
   const location = useLocation();
 
   return (
-    <aside className="hidden lg:flex flex-col w-64 shrink-0 border-r border-border/40 bg-white/60 backdrop-blur-xl">
+    <aside className="hidden lg:flex flex-col w-64 shrink-0 border-r border-border/40 bg-sidebar/80 backdrop-blur-xl">
       <div className="p-6 flex items-center gap-2">
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-sky-400 flex items-center justify-center">
           <Sparkles className="w-4 h-4 text-white" />
@@ -32,7 +32,7 @@ export default function Sidebar() {
               to={item.path}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? 'bg-violet-50 text-violet-700'
+                  ? 'bg-primary/10 text-primary'
                   : 'text-muted-foreground hover:bg-muted hover:text-foreground'
               }`}
             >
