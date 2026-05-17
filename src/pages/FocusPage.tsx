@@ -4,6 +4,7 @@ import { Play, Pause, RotateCcw, X, Timer } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageMeta from '@/components/common/PageMeta';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import { useTheme } from '@/contexts/ThemeContext';
 
 import { Settings2 } from 'lucide-react';
 
@@ -19,6 +20,7 @@ function formatTime(seconds: number): string {
 
 export default function FocusPage() {
   const navigate = useNavigate();
+  const { theme } = useTheme();
   const [phase, setPhase] = useState<Phase>('work');
   const [workMinutes, setWorkMinutes] = useState(25);
   const [breakMinutes, setBreakMinutes] = useState(5);
@@ -86,8 +88,8 @@ export default function FocusPage() {
     <>
       <PageMeta title="Focus Mode — LifeBoard AI" description="Focus on what matters." />
       <div 
-        className="fixed inset-0 z-50 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url("/images/illustrations/nature.jpg")' }}
+        className="fixed inset-0 z-50 bg-cover bg-center bg-no-repeat transition-all duration-700 ease-in-out"
+        style={{ backgroundImage: `url("/images/illustrations/${theme === 'dark' ? 'dark.png' : 'light.png'}")` }}
       >
         {/* Overlay to ensure text and UI readability */}
         <div className="absolute inset-0 bg-background/40 backdrop-blur-[5px]" />
