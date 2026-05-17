@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, CheckSquare, Repeat, StickyNote, Focus, Sparkles } from 'lucide-react';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const navItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
@@ -41,6 +42,13 @@ export default function Sidebar() {
           );
         })}
       </nav>
+
+      <div className="p-4 border-t border-border/40">
+        <div className="flex items-center justify-between px-2">
+          <span className="text-sm font-medium text-muted-foreground">Theme</span>
+          <ThemeToggle />
+        </div>
+      </div>
     </aside>
   );
 }
