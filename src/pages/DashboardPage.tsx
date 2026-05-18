@@ -1,6 +1,6 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   CheckSquare,
   Repeat,
@@ -23,12 +23,15 @@ import {
   Calendar,
   ArrowRight,
   Flame,
+  RefreshCw,
+  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/db/supabase';
 import AppLayout from '@/components/layout/AppLayout';
 import PageMeta from '@/components/common/PageMeta';
 import LoadingSkeleton from '@/components/ui/LoadingSkeleton';
+import { fetchAIInsights, isInsightsConfigured } from '@/services/insightsService';
 
 interface Task {
   id: string;
@@ -92,7 +95,10 @@ export default function DashboardPage() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [insights, setInsights] = useState<Insight[]>(fallbackInsights);
   const [insightsLoading, setInsightsLoading] = useState(false);
+  const [insightsTimestamp, setInsightsTimestamp] = useState<number | null>(null);
+  const [isAiPowered, setIsAiPowered] = useState(false);
   const [loading, setLoading] = useState(true);
+  const refreshTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const name = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'there';
   const greeting = getGreeting();
@@ -119,29 +125,67 @@ export default function DashboardPage() {
     fetchData(user);
   }, [user]);
 
-  useEffect(() => {
+  // ── AI Insights fetching ──
+  const loadInsights = useCallback(async (forceRefresh = false) => {
     if (!user) return;
-    async function fetchInsights() {
-      setInsightsLoading(true);
-      try {
-        const { data, error } = await supabase.functions.invoke('insights', {
-          body: {
-            tasks_summary: { total: tasks.length, completed: tasks.filter((t) => t.completed).length },
-            habits_summary: { total: habits.length, streaks: habits.map((h) => h.streak) },
-          },
-        });
-        if (error || !data?.insights) { setInsights(fallbackInsights); return; }
-        const mapped: Insight[] = data.insights.map((text: string, i: number) => ({
+    setInsightsLoading(true);
+    try {
+      const taskSummary = {
+        total: tasks.length,
+        completed: tasks.filter((t) => t.completed).length,
+        highPriority: tasks.filter((t) => t.priority === 'high' && !t.completed).length,
+        overdue: tasks.filter((t) => {
+          if (!t.due_date || t.completed) return false;
+          return new Date(t.due_date) < new Date();
+        }).length,
+        titles: tasks.map((t) => t.title),
+      };
+      const habitSummary = {
+        total: habits.length,
+        completedToday: habits.filter((h) => h.completed_today).length,
+        streaks: habits.map((h) => h.streak),
+        names: habits.map((h) => h.name),
+      };
+
+      const result = await fetchAIInsights(taskSummary, habitSummary, forceRefresh);
+
+      if (result && result.insights.length > 0) {
+        const mapped: Insight[] = result.insights.map((text: string, i: number) => ({
           icon: [Zap, BarChart3, Clock][i % 3],
           text,
           color: ['text-violet-600', 'text-sky-600', 'text-emerald-600'][i % 3],
           bgColor: ['bg-violet-50', 'bg-sky-50', 'bg-emerald-50'][i % 3],
         }));
         setInsights(mapped);
-      } catch { setInsights(fallbackInsights); } finally { setInsightsLoading(false); }
+        setInsightsTimestamp(result.generatedAt);
+        setIsAiPowered(true);
+      } else {
+        setInsights(fallbackInsights);
+        setIsAiPowered(false);
+      }
+    } catch {
+      setInsights(fallbackInsights);
+      setIsAiPowered(false);
+    } finally {
+      setInsightsLoading(false);
     }
-    if (tasks.length > 0 || habits.length > 0) fetchInsights();
-  }, [user, tasks.length, habits.length]);
+  }, [user, tasks, habits]);
+
+  // Fetch on data load
+  useEffect(() => {
+    if (tasks.length > 0 || habits.length > 0) loadInsights(false);
+  }, [tasks.length, habits.length, loadInsights]);
+
+  // Auto-refresh every 30 minutes
+  useEffect(() => {
+    if (!user) return;
+    refreshTimerRef.current = setInterval(() => {
+      if (tasks.length > 0 || habits.length > 0) loadInsights(true);
+    }, 30 * 60 * 1000);
+    return () => {
+      if (refreshTimerRef.current) clearInterval(refreshTimerRef.current);
+    };
+  }, [user, tasks.length, habits.length, loadInsights]);
 
   async function toggleTask(id: string, completed: boolean) {
     await supabase.from('tasks').update({ completed: !completed }).eq('id', id);
@@ -457,25 +501,60 @@ export default function DashboardPage() {
                     <Brain className="w-4 h-4" />
                   </div>
                   <h2 className="dash-card__title">AI Insights</h2>
+                  {isAiPowered && (
+                    <span className="dash-ai-badge">
+                      <Sparkles className="w-3 h-3" /> AI
+                    </span>
+                  )}
                 </div>
+                <button
+                  className="dash-refresh-btn"
+                  onClick={() => loadInsights(true)}
+                  disabled={insightsLoading}
+                  title="Refresh insights"
+                  aria-label="Refresh AI insights"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${insightsLoading ? 'dash-refresh-spin' : ''}`} />
+                </button>
               </div>
 
               {insightsLoading ? (
                 <LoadingSkeleton lines={3} />
               ) : (
-                <ul className="dash-insight-list">
-                  {insights.map((insight, i) => {
-                    const Icon = insight.icon;
-                    return (
-                      <li key={i} className="dash-insight-item">
-                        <div className={`dash-insight-icon ${insight.bgColor} ${insight.color}`}>
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <p className="dash-insight-text">{insight.text}</p>
-                      </li>
-                    );
-                  })}
-                </ul>
+                <AnimatePresence mode="wait">
+                  <motion.ul
+                    key={insightsTimestamp ?? 'fallback'}
+                    className="dash-insight-list"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {insights.map((insight, i) => {
+                      const Icon = insight.icon;
+                      return (
+                        <li key={i} className="dash-insight-item">
+                          <div className={`dash-insight-icon ${insight.bgColor} ${insight.color}`}>
+                            <Icon className="w-4 h-4" />
+                          </div>
+                          <p className="dash-insight-text">{insight.text}</p>
+                        </li>
+                      );
+                    })}
+                  </motion.ul>
+                </AnimatePresence>
+              )}
+
+              {insightsTimestamp && (
+                <p className="dash-insight-timestamp">
+                  Updated {new Date(insightsTimestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </p>
+              )}
+
+              {!isInsightsConfigured() && (
+                <p className="dash-insight-notice">
+                  Add your OpenAI API key to .env.local for AI-powered insights
+                </p>
               )}
 
               <img
