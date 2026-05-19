@@ -97,6 +97,7 @@ export default function DashboardPage() {
   const [insightsLoading, setInsightsLoading] = useState(false);
   const [insightsTimestamp, setInsightsTimestamp] = useState<number | null>(null);
   const [isAiPowered, setIsAiPowered] = useState(false);
+  const [apiUsage, setApiUsage] = useState({ calls: 0, max: 4, limitReached: false });
   const [loading, setLoading] = useState(true);
   const refreshTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -159,6 +160,11 @@ export default function DashboardPage() {
         setInsights(mapped);
         setInsightsTimestamp(result.generatedAt);
         setIsAiPowered(true);
+        setApiUsage({
+          calls: result.apiCallsToday,
+          max: result.maxCallsPerDay,
+          limitReached: result.limitReached,
+        });
       } else {
         setInsights(fallbackInsights);
         setIsAiPowered(false);
@@ -546,14 +552,23 @@ export default function DashboardPage() {
               )}
 
               {insightsTimestamp && (
-                <p className="dash-insight-timestamp">
-                  Updated {new Date(insightsTimestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </p>
+                <div className="dash-insight-footer">
+                  {isAiPowered && (
+                    <span className={`dash-insight-usage ${apiUsage.limitReached ? 'dash-insight-usage--limit' : ''}`}>
+                      {apiUsage.limitReached
+                        ? `Limit reached (${apiUsage.calls}/${apiUsage.max}) — cycling saved`
+                        : `Refreshes: ${apiUsage.calls}/${apiUsage.max}`}
+                    </span>
+                  )}
+                  <p className="dash-insight-timestamp">
+                    Updated {new Date(insightsTimestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </p>
+                </div>
               )}
 
               {!isInsightsConfigured() && (
                 <p className="dash-insight-notice">
-                  Add your OpenAI API key to .env.local for AI-powered insights
+                  Add your Gemini API key to .env.local for AI-powered insights
                 </p>
               )}
 
