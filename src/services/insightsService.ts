@@ -47,7 +47,7 @@ interface DailyInsightsState {
 // ── Constants ──────────────────────────────────────────────────────
 const STATE_KEY = 'lifeboard_ai_insights_state';
 const MAX_CALLS_PER_DAY = 4;
-const GEMINI_MODEL = 'gemini-1.5-flash';
+const GEMINI_MODEL = 'gemini-2.5-flash';
 const CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutes cache for normal loads
 
 // ── Helpers ────────────────────────────────────────────────────────
